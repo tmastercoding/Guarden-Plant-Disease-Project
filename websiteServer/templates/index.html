@@ -1,17 +1,19 @@
-<!-- Base HTML file extended by other templates -->
+<!-- Every other html file extends this file. -->
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS and JS, jQuery, Chart.js -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Image Prediction Web App</title>
 
     <style>
-        /* CSS styling with light/dark mode */
+        /* Light/dark root CSS variables */
         :root{
             --bg: #ffffff;
             --bg-gradient: linear-gradient(135deg, #ffffff, #f3f4f6);
@@ -35,7 +37,7 @@
             --border: #333333;
             --accent: #43a047;
             --accent-600: #66bb6a;
-            --success: #43a047;
+            --success: rgb(67, 160, 71);
             --danger: #ef9a9a;
         }
 
@@ -60,8 +62,8 @@
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <!-- Redirects -->
             <div class="collapse navbar-collapse" id="navbarNav">
+                <!-- Redirects to other pages -->
                 <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="/predict">Predict</a>
@@ -84,7 +86,7 @@
     </main>
 
     <script>
-        // Light/dark mode toggling, affects other pages when extended
+        // Theme toggle logic
         (function(){
             const key = 'theme';
             const toggle = document.getElementById('theme-toggle');
@@ -102,7 +104,6 @@
                 toggle.addEventListener('click', function(){
                     const cur = document.documentElement.getAttribute('data-theme');
                     const next = cur === 'dark' ? 'light' : 'dark';
-                    // localStorage saves theme
                     localStorage.setItem(key, next);
                     applyTheme(next);
                 });
@@ -110,5 +111,4 @@
         })();
     </script>
 </body>
-
 </html>
