@@ -6,6 +6,7 @@ from ultralytics import YOLO
 import matplotlib.pyplot as plt
 import cv2
 from openai import OpenAI
+import datetime
 
 classes = {
     "Apple___Apple_scab": "Apple Scab",
@@ -47,8 +48,11 @@ classes = {
     "Tomato___Tomato_mosaic_virus": "Tomato Mosaic Virus",
     "Tomato___healthy": "Healthy Tomato"
 }
+
+# Initialize Flask app
 app = Flask(__name__)
 
+# Define folders
 UPLOAD_FOLDER = os.path.join(app.root_path, 'uploads')
 STATIC_FOLDER = os.path.join(app.root_path, 'static')
 STATIC_PREDICTIONS_FOLDER = os.path.join(STATIC_FOLDER, "predictions")
@@ -73,9 +77,11 @@ def save_predictions(entry):
 def predict_model(index, path):
     results = model.predict(os.path.join(path, "base.jpg"))
     save_path = os.path.join(path, "predictions")
+    # Create annotated image using cv2 and save
     img = cv2.imread(os.path.join(path, "base.jpg"))
     annotated_frame = results[0].plot()
     cv2.imwrite(os.path.join(path, "annotated.jpg"), annotated_frame)
+    # Process each detected box (bounding box)
     boxes = results[0].boxes
     data = {
         "file_url": f"/static/predictions/folder_{index}/annotated.jpg",
@@ -96,6 +102,7 @@ def predict_model(index, path):
         screenshot = cv2.resize(screenshot, (256, 256))
         cv2.imwrite(crop_path, screenshot)
         crop_url = f"/static/predictions/folder_{index}/crop_{i}.jpg"
+        # Extract data from each box
         data["predictions"][f"crop_{i}"] = {
             "bounding_box": [x1, y1, x2, y2],
             "class_id": cls_id,
@@ -116,6 +123,7 @@ def predict_model(index, path):
                 three_most_confident_files[min_conf_index] = crop_url
     with open(os.path.join(path, "data.json"), 'w') as f:
         json.dump(data, f)
+    # Ensure lists have exactly 3 entries
     while len(three_most_confident_predictions) < 3:
         three_most_confident_predictions.append("None")
     while len(three_most_confident_files) < 3:
@@ -124,6 +132,7 @@ def predict_model(index, path):
         three_most_confident_values.append(0.0)
     return three_most_confident_predictions, three_most_confident_files, three_most_confident_values, boxes_quan, types_of_diseases
 
+# Generate response based on prediction using OpenAI API
 def generate_response(result):
     if "Healthy" in result:
         return "Your plant is healthy! Keep up the good work!"
@@ -147,18 +156,27 @@ def generate_response(result):
 def home():
     return redirect(url_for('index'))
 
+# Redirect to /index from root (server initializes on /)
+@app.route("/")
+def home():
+    return redirect(url_for('index'))
+
+# Website route for file uploading
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
     return send_from_directory(UPLOAD_FOLDER, filename)
 
+# Analyze route to get AI-generated response
 @app.route("/analyze/<pred>", methods=['GET', 'POST'])
 def predict(pred):
     return generate_response(pred)
 
+# About page route
 @app.route("/about")
 def about():
     return render_template('about.html')
 
+# Save JSON route to save analysis results
 @app.route('/save', methods=['POST'])
 def save_json():
     data = request.get_json(force=True)
@@ -180,6 +198,7 @@ def save_json():
             return jsonify({'status': 'ok'})
     return jsonify({'status': 'not_found'}), 404
 
+# Main route for predictions, home page
 @app.route('/predict', methods=['GET', 'POST'])
 def index():
     prediction = None
@@ -202,6 +221,7 @@ def index():
                 save_predictions({'file_url': file_url,
                                     "annotated_url": f"/static/predictions/folder_{predictions_length}/annotated.jpg",
                                     "prediction": prediction,
+                                    "index": len(predictions),
                                     "prediction_data": [
                                         {
                                             "class_name": prediction[i],
@@ -213,7 +233,8 @@ def index():
                                     "boxes_quan": boxes_quan,
                                     "types": types
                                 })
-    return render_template('predict.html', data=load_predictions(), quan=int(request.args.get("quan", 1)))
+    return render_template('predict.html', data=load_predictions(), quan=int(request.args.get("quan", 1)), classes = classes)
 
+# Run the app
 if __name__ == '__main__':
     app.run(debug=True)
