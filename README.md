@@ -3,7 +3,7 @@ This is the Plant Disease Project, aimed at early detection of crop diseases in 
 
 ## Synthetic Dataset
 
-### [SyntheticDatasetMaking.ipynb](https://github.com/tmastercoding/Plant-Disease-Project/tree/main#:~:text=1%20hour%20ago-,SyntheticDatasetMaking.ipynb,-Update%20SyntheticDatasetMaking.ipynb):
+### [SyntheticDatasetMaking.ipynb](https://github.com/tmastercoding/Plant-Disease-Project/tree/main/synthetic_plant_dataset):
 
 This file creates artificial plant images for yolo training, by augmenting and placing leaf images from the PlantVillage dataset, over random backgrounds along with bounding boxes. 
 
@@ -14,17 +14,17 @@ A random background is selected. Random amount of leaves are selected from the l
 
 These artificial images are then compiled into a new dataset with specified file directory
 
-### [Synthetic plant dataset (folder)](https://github.com/tmastercoding/Plant-Disease-Project/tree/main#:~:text=synthetic_plant_dataset)
+### [Synthetic plant dataset (folder)](https://github.com/tmastercoding/Plant-Disease-Project/tree/main/synthetic_plant_dataset)
 
 A sample synthetic dataset that was created from the SyntheticDatasetMaking.ipynb file, containing 10,000 labeled images in YOLO format.
 
 
-### [Backgrounds (folder)](https://github.com/tmastercoding/Plant-Disease-Project/tree/main#:~:text=41%20Commits-,backgrounds,-Delete%20backgrounds/test)
+### [Backgrounds (folder)](https://github.com/tmastercoding/Plant-Disease-Project/tree/main/backgrounds)
 
 Contains 20 sample backgrounds used for the synthetic dataset (could be replaced with other ones)
 
 ## Wesbite
-### [Website Server](https://github.com/tmastercoding/Plant-Disease-Project/tree/main#:~:text=18%20hours%20ago-,websiteServer,-Added%20logo)
+### [Website Server](https://github.com/tmastercoding/Plant-Disease-Project/tree/main/websiteServer)
 
 Contains two python files and a pretrained model
 
@@ -32,7 +32,7 @@ app-withNano: The website is hosted on your computer, processing is done on the 
 
 app-withoutNano: The website is hosted on your computer, processing is done on the computer
 
-### [websiteNano](https://github.com/tmastercoding/Plant-Disease-Project/tree/main#:~:text=last%20week-,websiteNano,-Add%20caution%20notes)
+### [websiteNano](https://github.com/tmastercoding/Plant-Disease-Project/tree/main/websiteNano)
 
 Contains three python files and a pretrained model
 
@@ -42,7 +42,7 @@ app-EdgeWithGPU: A website is hosted with processing on the edge with the GPU on
 
 app-EdgeWithServer: An API is hosted on the Nano that links with the app-withNano on your computer.
 
-## [Runs](https://github.com/tmastercoding/Plant-Disease-Project/tree/main#:~:text=yesterday-,runs,-Initial%20commit)
+## [Runs](https://github.com/tmastercoding/Plant-Disease-Project/tree/main/runs)
 Runs is a folder containing images of graphs and data of our YOLOv8 training. It also contains the yolo weights file called best.pt.
 
 ## How to Host Website:
