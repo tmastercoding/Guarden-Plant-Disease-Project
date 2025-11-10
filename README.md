@@ -51,4 +51,15 @@ Runs is a folder containing images of graphs and data of our YOLOv8 training. It
 3. Run app-withNano on your computer
 4. Host for remote connection (outside of your network) with the command ngrok http 8000 on terminal.
 
-
+## Credits:
+- Github Repo - Tay Oh (tmastercoding)
+- Prototyping with Keras - Tay Oh (tmastercoding), Braden Lau (Koogoshau)
+- Attemps with PlantDoc - Tay Oh (tmastercoding), Braden Lau (Koogoshau)
+- Synthetic Dataset - Tay Oh (tmastercoding), Braden Lau (Koogoshau)
+- YOLO Training and Testing - Tay Oh (tmastercoding)
+- Website without Nano - Harry Lam (adyinae1128)
+- About.html - Gabriel Tsang
+- Website with Nano - Tay Oh(tmastercoding)
+- Nano Side API code - Tay Oh(tmastercoding)
+- Nano Side YOLO inference - Tay Oh(tmastercoding)
+- Server Hosting & Troubleshooting - Tay Oh(tmastercoding)
