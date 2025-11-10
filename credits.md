@@ -9,3 +9,4 @@
 - Website with Nano - Tay Oh(tmastercoding)
 - Nano Side API code - Tay Oh(tmastercoding)
 - Nano Side YOLO inference - Tay Oh(tmastercoding)
+- Server Hosting & Troubleshooting - Tay Oh(tmastercoding)
