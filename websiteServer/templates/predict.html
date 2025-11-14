@@ -288,6 +288,10 @@
 			"Tomato___healthy": "Healthy Tomato",
 		};
 
+		if ( window.history.replaceState ) {
+			window.history.replaceState( null, null, window.location.href );
+		}
+
 		// Get generative AI analysis on button click
 
 		$(".analyse-btn").on("click", function (e) {
@@ -369,6 +373,10 @@
 		}
 		chart = null;
 		function render_chart(additional_param = null) {
+			// Safely destroy old DataTable instance if it exists
+			if (table) {
+				table.destroy()
+			}
 			chart != null ? chart.destroy() : null;
 			// Ignore this syntax error, it works perfectly
 			const data = {{ data| tojson }};
@@ -412,7 +420,6 @@
 				}	
 				historicalOccurences.push(classesQuan)
 			}
-			console.log(historicalOccurences)
 			historicalOccurences = historicalOccurences.reduce((acc, curr) => {
 				for (let i = 0; i < curr.length; i++) {
 					acc[i] = acc[i] + curr[i];
@@ -458,7 +465,7 @@
 				}
 			})
 
-			new DataTable("#table", {
+			var table = new DataTable("#table", {
 				columnDefs: [
 					{
 						className: 'dtr-control',
@@ -475,7 +482,8 @@
 					details: {
 						type: 'column'
 					}
-				}
+				},
+				destroy: true
 			})
 		}
 
@@ -516,7 +524,7 @@
 <div class="container centered-content">
 	<!-- File upload section -->
 	<div class="upload-section">
-		<form method="POST" enctype="multipart/form-data">
+		<form method="POST" enctype="multipart/form-data" id="upload-form">
 			<label for="img">📁 Upload an image for prediction</label>
 			<input name="img" type="file" accept=".jpg,.png,.jpeg" class="form-control mb-3" />
 			<button type="submit" class="btn btn-success px-4 file-submit">
