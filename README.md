@@ -1,5 +1,6 @@
 # README
 This is the Plant Disease Project, aimed at early detection of crop diseases in farms to prevent crop loss and increase yield. 
+Here is a [video explanation](https://youtu.be/EMX3cP1biFs)
 
 ## Synthetic Dataset
 
